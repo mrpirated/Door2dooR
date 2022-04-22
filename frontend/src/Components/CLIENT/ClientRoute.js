@@ -8,7 +8,7 @@ function ClientRoute() {
         <div>
 			<Routes>
 				<Route path='login' element={<Login/>} />
-				<Route path='client' element={<Signup/>} />
+				<Route path='signup' element={<Signup/>} />
 			</Routes>
 		</div>
     )
