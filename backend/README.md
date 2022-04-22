@@ -74,3 +74,28 @@
             "message": string
         }
         ```
+3. /api/admin/addStation
+    - request
+        ``` javascript
+        "headers":{
+            "authorization":"Bearer "+token
+        },
+        "body":{
+           "code":string,
+           "name":string,
+        }
+        ```
+    - response
+        ```javascript
+        {
+            "success":boolean,
+            "message":string,
+        }
+        ```
+    - error
+        ```javascript
+        {
+            "success":boolean,
+            "message": string
+        }
+        ```
