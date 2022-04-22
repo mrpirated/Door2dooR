@@ -6,7 +6,11 @@ const addNewUser = async (user) => {
 	return new Promise((resolve, reject) => {
 		var values;
 		if (user.type === "admin") {
-			values = { email: user.email, password: user.password };
+			values = {
+				email: user.email,
+				phone: user.phone,
+				password: user.password,
+			};
 		} else {
 			values = {
 				name: user.name,
