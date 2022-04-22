@@ -17,14 +17,7 @@ const signupService = async (user) => {
 						message: "User Already Exists",
 					});
 				}
-				if (user.type === "admin") {
-					var password = hashPassword(user.password);
-					//debug(password);
-					user.password = password;
-					return addNewUser(user);
-				} else {
-					return twilioOTP(user);
-				}
+				return twilioOTP(user);
 			})
 			.catch((err) => {
 				return err;
