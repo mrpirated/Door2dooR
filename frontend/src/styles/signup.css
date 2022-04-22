@@ -1,0 +1,32 @@
+#signupform {
+	min-height: auto;
+	height: 830px;
+	margin: 3% auto;
+	width: 70%;
+	background-color: #ffffff;
+	border-radius: 25px;
+	border-width: 7px;
+	border-style: solid;
+	padding: 20px;
+	border-color: var(--bgColor4);
+	overflow: auto;
+}
+
+#right-signup {
+	width: 40%;
+	float: right;
+}
+
+#left-signup {
+	width: 60%;
+	float: left;
+	padding: 2%;
+}
+
+#headerTitle {
+	text-align: center;
+	font-family: "open sans", sans-serif;
+	padding: 1rem 0;
+	margin: 0;
+	font-size: 2rem;
+}

@@ -7,8 +7,7 @@ import "react-phone-number-input/style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { alertAdded, alertRemoved} from "../../store/alert";
 import config from "../../config/config";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import packageLogo from "./boxes-packing-solid.svg";
+import "../../styles/signup.css";
 import signupAPI from "../../api/COMMON/signupAPI";
 
 function Signup(props) {
@@ -98,7 +97,7 @@ function Signup(props) {
 				<div id='right-signup'>
 					<img
 						style={{ height: "100%", width: "100%", margin: "40% auto" }}
-						src={packageLogo}
+						src={"HEELLO"}
 						alt={"doctor_logo"}
 					/>
 				</div>

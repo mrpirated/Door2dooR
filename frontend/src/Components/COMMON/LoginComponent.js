@@ -8,6 +8,7 @@ import { loggedIn } from '../../store/auth';
 import { Link } from 'react-router-dom';
 import config from '../../config/config';
 import loginAPI from '../../api/COMMON/loginAPI';
+import "../../styles/login.css";
 
 function LoginComponent(props) {
 	const [phone, setPhone] = useState("");
@@ -35,6 +36,7 @@ function LoginComponent(props) {
 						type: type,
 					})
 				);
+				// console.log("SUCCESSFUL");
 				if (type === config.CLIENT) navigate(config.client);
 				else if (type === config.COMPANY) navigate(config.company);
 				else navigate(config.admin);
@@ -87,7 +89,7 @@ function LoginComponent(props) {
 							<Link to={`/${type}/forgot`}>Forgot Password</Link>
 						</div>
 						<div id='button' className='row'>
-							<button type='submit' disabled={!validateForm()}>
+							<button type='submit'>
 								Log in
 							</button>
 						</div>
