@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { useDispatch, useSelector } from "react-redux";
-import { alertAdded, alertRemoved } from "../../../store/alert";
+import { alertAdded, alertRemoved} from "../../store/alert";
 import config from "../../config/config";
 
 function Signup(props) {
