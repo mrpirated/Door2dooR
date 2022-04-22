@@ -2,12 +2,12 @@ import axios from "axios";
 import config from "../../config/config";
 
 const signupAPI = async (data) => {
-	const { type, phone, password} = data;
+	const { type, phone, password,otp} = data;
 	return await axios
 		.post(config.baseUrl + config.signup, {
 			type,
 			phone,
-			password
+			password,otp
 		})
 		.then((res) => {
 			return res.data;

@@ -19,8 +19,8 @@ function Signup(props) {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [code, setCode] = useState("");
-	const [openPopup, setopenPopup] = useState(props.openPopup);
 	const handleClose = () => setopenPopup(false);
+	const [openPopup, setopenPopup] = useState(props.openPopup);
 	const alert = useSelector((state) => state.alert);
 	const type = config.CLIENT;
 	const navigate = useNavigate();
@@ -74,7 +74,7 @@ function Signup(props) {
 						variant: "success",
 						message: "Registered Successfully",
 					});
-					navigate("/login");
+					navigate("/client/login");
 				} else {
 					alert(res.message);
 				}

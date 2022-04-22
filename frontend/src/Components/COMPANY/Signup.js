@@ -21,7 +21,7 @@ function Signup(props) {
 	const [openPopup, setopenPopup] = useState(props.openPopup);
 	const handleClose = () => setopenPopup(false);
 	const alert = useSelector((state) => state.alert);
-	const type = config.CLIENT;
+	const type = config.COMPANY;
 	const navigate = useNavigate();
 	const validateForm = () => {
 		return name.length > 0 && email.length > 0 && phone.length > 0 && password.length > 0 && confirmPassword.length > 0;
