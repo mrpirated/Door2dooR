@@ -3,6 +3,7 @@ const debug = dbg("service:admin/addStation");
 import checkTrainExists from "../../data/checkTrainExists";
 import checkToken from "../../controllers/checkToken";
 import addTrain from "../../data/addTrain";
+import addTrainSchedule from "../../data/addTrainSchedule";
 const addStationService = async (token, { num, name, days, schedule }) => {
 	return await checkToken(token)
 		.then((response) => {
@@ -17,6 +18,9 @@ const addStationService = async (token, { num, name, days, schedule }) => {
 			} else {
 				return Promise.reject({ success: false, message: response.message });
 			}
+		})
+		.then((response) => {
+			return addTrainSchedule(num, schedule);
 		})
 		.catch((err) => {
 			debug(err);
