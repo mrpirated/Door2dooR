@@ -3,7 +3,7 @@
 
 // console.log(process.env);
 const config = {
-  baseUrl: 'http://localhost:4587/api',
+  baseUrl: 'http://localhost:6874/api',
   token: '/token',
   company: '/company',
   client: '/client',
