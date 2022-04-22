@@ -10,17 +10,18 @@ const addTrainSchedule = async (num, schedule) => {
 			}
 			var values = [];
 			for (var i = 0; i < schedule.length; i++) {
-				values.push({
-					num: num,
-					code: schedule[i].code,
-					arrival: schedule[i].arrival,
-					departure: schedule[i].departure,
-					pos: schedule[i].pos,
-					day: schedule[i].day,
-				});
+				values.push([
+					num,
+					schedule[i].code,
+					schedule[i].arrival,
+					schedule[i].departure,
+					schedule[i].pos,
+					schedule[i].day,
+				]);
 			}
+			debug(values);
 			connection.query(
-				"INSERT INTO trainSchedule VALUES ?",
+				"INSERT INTO  trainSchedule (num,code,arrival,departure,pos,day) VALUES ?",
 				[values],
 				(err, result) => {
 					if (err) {
