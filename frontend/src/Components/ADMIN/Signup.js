@@ -14,6 +14,10 @@ function Signup(props) {
 	const [phone, setPhone] = useState("");
 	const [password, setPassword] = useState("");
 	const alert = useSelector((state) => state.alert);
+    const [openPopup, setopenPopup] = useState(props.openPopup);
+    const [code, setCode] = useState("");
+    const handleClose = () => setopenPopup(false);
+	
 	const type = config.ADMIN;
 	const navigate = useNavigate();
 	const validateForm = () => {
@@ -22,7 +26,7 @@ function Signup(props) {
 
 	const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("done");
+        // console.log("done");
 		if (validateForm()) {
 			signupAPI({
 				type,
@@ -31,13 +35,38 @@ function Signup(props) {
 			}).then((res) => {
 				console.log(res);
 				if (res.success) {
-                    console.log("done");
-					navigate("/login");
+                    setopenPopup(true);
+                    // console.log("done");
+					// navigate("/admin/login");
 				} else {
-					alert(res.data.msg);
+					// alert(res.data.msg);
 				}
 			});
         }
+	};
+
+    const handleOTPSubmit = (event) => {
+		event.preventDefault();
+		if (validateForm()) {
+			signupAPI({
+				type,
+				phone,
+				password,
+				otp: code,
+			}).then((res) => {
+				console.log(res);
+				if (res.success) {
+					setopenPopup(false);
+					alertAdded({
+						variant: "success",
+						message: "Registered Successfully",
+					});
+					navigate("/admin/login");
+				} else {
+					alert(res.message);
+				}
+			});
+		}
 	};
 
 	return (
@@ -86,6 +115,38 @@ function Signup(props) {
 								Sign Up
 							</button>
 						</div>
+                        <Modal show={openPopup} onHide={handleClose}>
+								<Modal.Header closeButton className='modal-header'>
+									<Modal.Body className='modal-body'>
+										<div className='row'>
+											<label style={{ color: "black", fontSize: "30px" }}>
+												Enter OTP
+											</label>
+											<input
+												type='text'
+												value={code}
+												onChange={(e) => setCode(e.target.value)}
+											/>
+										</div>
+										<div className='row'>
+											<label style={{ color: "black" }}>
+												OTP sent to phone number {phone}
+											</label>
+										</div>
+										<div id='button' class='row'>
+											<button
+												style={{ width: "45%", fontSize: "15px" }}
+												onClick={handleOTPSubmit}
+											>
+												Submit
+											</button>
+										</div>
+									</Modal.Body>
+								</Modal.Header>
+							</Modal>
+							{/* <Button block size='lg' type='submit' disabled={!validateForm()}>
+									Submit
+								</Button> */}
 						</div>
 					</Form>
 				</div>
