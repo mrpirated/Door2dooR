@@ -7,8 +7,7 @@ import "react-phone-number-input/style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { alertAdded, alertRemoved} from "../../store/alert";
 import config from "../../config/config";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import packageLogo from "./boxes-packing-solid.svg";
+import "../../styles/signup.css";
 import signupAPI from "../../api/COMMON/signupAPI";
 
 function Signup(props) {
@@ -19,10 +18,10 @@ function Signup(props) {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [code, setCode] = useState("");
-	const handleClose = () => setopenPopup(false);
 	const [openPopup, setopenPopup] = useState(props.openPopup);
+	const handleClose = () => setopenPopup(false);
 	const alert = useSelector((state) => state.alert);
-	const type = config.CLIENT;
+	const type = config.COMPANY;
 	const navigate = useNavigate();
 	const validateForm = () => {
 		return name.length > 0 && email.length > 0 && phone.length > 0 && password.length > 0 && confirmPassword.length > 0;
@@ -74,7 +73,7 @@ function Signup(props) {
 						variant: "success",
 						message: "Registered Successfully",
 					});
-					navigate("/client/login");
+					navigate("/login");
 				} else {
 					alert(res.message);
 				}
@@ -98,7 +97,7 @@ function Signup(props) {
 				<div id='right-signup'>
 					<img
 						style={{ height: "100%", width: "100%", margin: "40% auto" }}
-						src={packageLogo}
+						src={"HEELLO"}
 						alt={"doctor_logo"}
 					/>
 				</div>

@@ -7,62 +7,49 @@ import "react-phone-number-input/style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { alertAdded, alertRemoved} from "../../store/alert";
 import config from "../../config/config";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import packageLogo from "./boxes-packing-solid.svg";
-import signupAPI from "../../api/COMMON/signupAPI";
+import signupAPI from "../../api/ADMIN/signupAPI";
 
 function Signup(props) {
     const dispatch = useDispatch();
-	const [name, setName] = useState("");
-	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
 	const [password, setPassword] = useState("");
-	const [confirmPassword, setConfirmPassword] = useState("");
-	const [code, setCode] = useState("");
-	const handleClose = () => setopenPopup(false);
-	const [openPopup, setopenPopup] = useState(props.openPopup);
 	const alert = useSelector((state) => state.alert);
-	const type = config.CLIENT;
+    const [openPopup, setopenPopup] = useState(props.openPopup);
+    const [code, setCode] = useState("");
+    const handleClose = () => setopenPopup(false);
+	
+	const type = config.ADMIN;
 	const navigate = useNavigate();
 	const validateForm = () => {
-		return name.length > 0 && email.length > 0 && phone.length > 0 && password.length > 0 && confirmPassword.length > 0;
+		return phone.length > 0 && password.length > 0;
 	};
 
 	const handleSubmit = (event) => {
-		event.preventDefault();
-		if (validateForm() && password === confirmPassword) {
+        event.preventDefault();
+        // console.log("done");
+		if (validateForm()) {
 			signupAPI({
 				type,
-				name,
-                email,
 				phone,
 				password,
 			}).then((res) => {
 				console.log(res);
 				if (res.success) {
-					setopenPopup(true);
-					// history.push("/home");
+                    setopenPopup(true);
+                    // console.log("done");
+					// navigate("/admin/login");
 				} else {
-					alert(res.data.msg);
+					// alert(res.data.msg);
 				}
 			});
-		} else if (password !== confirmPassword) {
-			dispatch(
-				alertAdded({
-					variant: "warning",
-					message: "Password and Confirm Password should match.",
-				})
-			);
-		}
+        }
 	};
 
-	const handleOTPSubmit = (event) => {
+    const handleOTPSubmit = (event) => {
 		event.preventDefault();
-		if (validateForm() && password === confirmPassword) {
+		if (validateForm()) {
 			signupAPI({
 				type,
-				name,
-                email,
 				phone,
 				password,
 				otp: code,
@@ -74,15 +61,10 @@ function Signup(props) {
 						variant: "success",
 						message: "Registered Successfully",
 					});
-					navigate("/client/login");
+					navigate("/admin/login");
 				} else {
 					alert(res.message);
 				}
-			});
-		} else if (password !== confirmPassword) {
-			alertAdded({
-				variant: "warning",
-				message: "Password and Confirm Password should match.",
 			});
 		}
 	};
@@ -98,7 +80,7 @@ function Signup(props) {
 				<div id='right-signup'>
 					<img
 						style={{ height: "100%", width: "100%", margin: "40% auto" }}
-						src={packageLogo}
+						src={"HEELLO"}
 						alt={"doctor_logo"}
 					/>
 				</div>
@@ -110,13 +92,6 @@ function Signup(props) {
 								{alert.message}
 							</Alert>
 							<div className='row'>
-								<label>Name</label>
-								<input
-									value={name}
-									onChange={(e) => setName(e.target.value)}
-								/>
-							</div>
-                            <div className='row'>
 								<label>Phone Number</label>
 								<PhoneInput
 									// placeholder="Enter phone number"
@@ -124,16 +99,6 @@ function Signup(props) {
 									value={phone}
 									style={{ width: "85%" }}
 									onChange={setPhone}
-								/>
-							</div>
-							<div className='row'>
-								<label>Email</label>
-								<input
-									// placeholder="Enter your Last Name"
-
-									type='email'
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
 								/>
 							</div>
 							<div className='row'>
@@ -145,26 +110,12 @@ function Signup(props) {
 									onChange={(e) => setPassword(e.target.value)}
 								/>
 							</div>
-							<div className='row'>
-								<label>Confirm Password</label>
-								<input
-									// placeholder="Enter your Last Name"
-									type='password'
-									value={confirmPassword}
-									onChange={(e) => setConfirmPassword(e.target.value)}
-								/>
-							</div>
-
-							<div id='button' class='row'>
-								<button
-									style={{ width: "45%", fontSize: "15px" }}
-									type='submit'
-									disabled={!validateForm()}
-								>
-									Get OTP
-								</button>
-							</div>
-							<Modal show={openPopup} onHide={handleClose}>
+                            <div id='button' className='row'>
+							<button type='submit'>
+								Sign Up
+							</button>
+						</div>
+                        <Modal show={openPopup} onHide={handleClose}>
 								<Modal.Header closeButton className='modal-header'>
 									<Modal.Body className='modal-body'>
 										<div className='row'>
