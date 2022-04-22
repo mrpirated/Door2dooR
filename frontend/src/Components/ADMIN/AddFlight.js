@@ -11,7 +11,7 @@ const AddTrain = () => {
   const [days, setDays] = useState('');
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(trainName, trainNum, days);
+    // console.log(trainName, trainNum, days);
   };
   return (
     <div>
