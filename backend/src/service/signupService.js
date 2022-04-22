@@ -23,6 +23,7 @@ const signupService = async (user) => {
 				return err;
 			});
 	} else {
+		debug(user);
 		var password = user.password;
 		return await checkIfUserExists(user)
 			.then((response) => {
