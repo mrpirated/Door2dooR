@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Form, Modal, Alert } from "react-bootstrap";
-import signupAPI from "../../../api/signupAPI";
 import { useNavigate } from "react-router";
 import "react-datepicker/dist/react-datepicker.css";
 import PhoneInput from "react-phone-number-input";
@@ -29,21 +28,21 @@ function Signup(props) {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (validateForm() && password === confirmPassword) {
-			signupAPI({
-				type,
-				name,
-                email,
-				phone,
-				password,
-			}).then((res) => {
-				console.log(res);
-				if (res.success) {
-					setopenPopup(true);
-					// history.push("/home");
-				} else {
-					alert(res.data.msg);
-				}
-			});
+			// signupAPI({
+			// 	type,
+			// 	name,
+            //     email,
+			// 	phone,
+			// 	password,
+			// }).then((res) => {
+			// 	console.log(res);
+			// 	if (res.success) {
+			// 		setopenPopup(true);
+			// 		// history.push("/home");
+			// 	} else {
+			// 		alert(res.data.msg);
+			// 	}
+			// });
 		} else if (password !== confirmPassword) {
 			dispatch(
 				alertAdded({
@@ -57,26 +56,26 @@ function Signup(props) {
 	const handleOTPSubmit = (event) => {
 		event.preventDefault();
 		if (validateForm() && password === confirmPassword) {
-			signupAPI({
-				type,
-				name,
-                email,
-				phone,
-				password,
-				otp: code,
-			}).then((res) => {
-				console.log(res);
-				if (res.success) {
-					setopenPopup(false);
-					alertAdded({
-						variant: "success",
-						message: "Registered Successfully",
-					});
-					navigate("/login");
-				} else {
-					alert(res.message);
-				}
-			});
+			// signupAPI({
+			// 	type,
+			// 	name,
+            //     email,
+			// 	phone,
+			// 	password,
+			// 	otp: code,
+			// }).then((res) => {
+			// 	console.log(res);
+			// 	if (res.success) {
+			// 		setopenPopup(false);
+			// 		alertAdded({
+			// 			variant: "success",
+			// 			message: "Registered Successfully",
+			// 		});
+			// 		navigate("/login");
+			// 	} else {
+			// 		alert(res.message);
+			// 	}
+			// });
 		} else if (password !== confirmPassword) {
 			alertAdded({
 				variant: "warning",
