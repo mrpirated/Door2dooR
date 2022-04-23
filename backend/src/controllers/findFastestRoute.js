@@ -14,9 +14,15 @@ const findFastestRoute = async (src_pincode, dest_pincode, hotspots) => {
 			return x.time - y.time;
 		},
 	});
+	var pqc = new PriorityQueue({
+		comparator: (x, y) => {
+			return x.cost - y.cost;
+		},
+	});
 	var allTrain, allFlight;
 	var srcdist = {};
 	var destdist = {};
+	var fastestRoute, cheapestRoute;
 	//debug(hotspots);
 	var allps = [];
 	var allpd = [];
@@ -26,7 +32,6 @@ const findFastestRoute = async (src_pincode, dest_pincode, hotspots) => {
 		allpd.push(getPincodeDistance(hotspots[i].pincode, dest_pincode));
 	}
 	//debug(allp.length);
-	const timer = (ms) => new Promise((res) => setTimeout(res, ms));
 	return await Promise.all(allps)
 		.then((response) => {
 			//debug(response);
@@ -41,16 +46,28 @@ const findFastestRoute = async (src_pincode, dest_pincode, hotspots) => {
 				srcdist[response[i].data.dest_pincode].time = parseFloat(
 					srcdist[response[i].data.dest_pincode].time
 				);
-				if (response[i].data.duration > 0)
+				if (response[i].data.duration > 0) {
 					pq.queue({
 						type: 2,
 						distance: parseFloat(response[i].data.distance),
 						duration: parseFloat(response[i].data.duration),
+						cost: parseFloat((response[i].data.duration * 0.2).toFixed(2)),
 						time: parseFloat(response[i].data.duration),
 						src_pincode: response[i].data.src_pincode,
 						dest_pincode: response[i].data.dest_pincode,
 						path: [],
 					});
+					pqc.queue({
+						type: 2,
+						distance: parseFloat(response[i].data.distance),
+						duration: parseFloat(response[i].data.duration),
+						cost: parseFloat((response[i].data.duration * 0.2).toFixed(2)),
+						time: parseFloat(response[i].data.duration),
+						src_pincode: response[i].data.src_pincode,
+						dest_pincode: response[i].data.dest_pincode,
+						path: [],
+					});
+				}
 			}
 			//debug(pq.priv);
 			return Promise.all(allpd);
@@ -82,7 +99,8 @@ const findFastestRoute = async (src_pincode, dest_pincode, hotspots) => {
 		.then((response) => {
 			allFlight = response.data.flight;
 			//debug(allFlight);
-			var paths = [];
+			var paths = [],
+				paths2 = [];
 			var vis = [];
 
 			while (paths.length < 10 && pq.length > 0) {
@@ -113,6 +131,7 @@ const findFastestRoute = async (src_pincode, dest_pincode, hotspots) => {
 						type: 2,
 						distance: destdist[ht.pincode].distance,
 						duration: destdist[ht.pincode].duration,
+						cost: parseFloat((destdist[ht.pincode].duration * 0.2).toFixed(2)),
 						time: parseFloat(
 							(top.time + destdist[ht.pincode].duration).toFixed(2)
 						),
@@ -142,7 +161,10 @@ const findFastestRoute = async (src_pincode, dest_pincode, hotspots) => {
 							pq.queue({
 								type: 0,
 								duration: parseFloat(nextTrains[i].duration),
-								distance: 0,
+								distance: parseFloat(nextTrains[i].distance),
+								cost: parseFloat(
+									(parseFloat(nextTrains[i].duration) * (4 / 60)).toFixed(2)
+								),
 								src_pincode: nextTrains[i].src_pincode,
 								dest_pincode: nextTrains[i].dest_pincode,
 								time: tpm,
@@ -182,28 +204,167 @@ const findFastestRoute = async (src_pincode, dest_pincode, hotspots) => {
 							pq.queue({
 								type: 1,
 								duration: parseFloat(nextFlights[i].duration),
-								distance: 0,
+								distance: parseFloat(nextFlights[i].distance),
+								cost: parseFloat(
+									(parseFloat(nextFlights[i].duration) * (20 / 6)).toFixed(2)
+								),
 								src_pincode: nextFlights[i].src_pincode,
 								dest_pincode: nextFlights[i].dest_pincode,
 								time: tpm,
 								path: [...top.path, topv],
 							});
-							debug({
+							// debug({
+							// 	type: 1,
+							// 	duration: parseFloat(nextFlights[i].duration),
+							// 	distance: parseFloat(nextFlights[i].distance),
+							// 	cost: parseFloat(
+							// 		(parseFloat(nextFlights[i].duration) * (20 / 6)).toFixed(2)
+							// 	),
+							// 	src_pincode: nextFlights[i].src_pincode,
+							// 	dest_pincode: nextFlights[i].dest_pincode,
+							// 	time: tpm,
+							// 	path: [...top.path, topv],
+							// });
+						}
+						vis.push(ht);
+					}
+				}
+			}
+			vis = [];
+			while (paths2.length < 10 && pqc.length > 0) {
+				var top = pqc.dequeue();
+				var lpd = vis.find((v) => v.pincode == top.dest_pincode);
+				//debug(lpd);
+				if (lpd !== undefined) {
+					continue;
+				}
+				var topv = {
+					type: top.type,
+					distance: top.distance,
+					duration: top.duration,
+					cost: top.cost,
+					time: top.time,
+					src_pincode: top.src_pincode,
+					dest_pincode: top.dest_pincode,
+				};
+				if (top.dest_pincode === dest_pincode) {
+					top.path.push(topv);
+					paths2.push(top.path);
+					//debug(paths);
+				} else {
+					var ht = hotspots.find((h) => h.pincode == top.dest_pincode);
+					debug(ht);
+					pqc.queue({
+						type: 2,
+						distance: destdist[ht.pincode].distance,
+						duration: destdist[ht.pincode].duration,
+						cost: parseFloat((destdist[ht.pincode].duration * 0.2).toFixed(2)),
+						time: parseFloat(
+							(top.time + destdist[ht.pincode].duration).toFixed(2)
+						),
+						src_pincode: top.dest_pincode,
+						dest_pincode: dest_pincode,
+						path: [...top.path, topv],
+					});
+					if (ht.type == 0) {
+						var avaitime = moment().add(top.time + 60, "minutes");
+						debug(moment(avaitime).format("llll"));
+
+						var nextTrains = getNextTrain(
+							avaitime,
+							ht.code,
+							allTrain
+						).nextTrains;
+						//debug(nextTrains);
+						for (var i = 0; i < nextTrains.length; i++) {
+							var tpm =
+								moment(nextTrains[i].date).format("YYYY-MM-DD") +
+								" " +
+								nextTrains[i].departure;
+							//debug(tpm);
+							tpm =
+								moment(tpm).diff(moment(), "minutes") + nextTrains[i].duration;
+							debug(tpm);
+							pqc.queue({
+								type: 0,
+								duration: parseFloat(nextTrains[i].duration),
+								distance: parseFloat(nextTrains[i].distance),
+								cost: parseFloat(
+									(parseFloat(nextTrains[i].duration) * (4 / 60)).toFixed(2)
+								),
+								src_pincode: nextTrains[i].src_pincode,
+								dest_pincode: nextTrains[i].dest_pincode,
+								time: tpm,
+								path: [...top.path, topv],
+							});
+							// debug({
+							// 	type: 0,
+							// 	duration: parseFloat(nextTrains[i].duration),
+							// 	distance: 0,
+							// 	src_pincode: nextTrains[i].src_pincode,
+							// 	dest_pincode: nextTrains[i].dest_pincode,
+							// 	time: tpm,
+							// 	path: [...top.path, topv],
+							// });
+						}
+
+						vis.push(ht);
+					} else if (ht.type == 1) {
+						var avaitime = moment().add(top.time + 120, "minutes");
+						//debug(avaitime);
+						debug(moment(avaitime).format("llll"));
+						var nextFlights = getNextFlight(
+							avaitime,
+							ht.code,
+							allFlight
+						).nextFlights;
+						debug(nextFlights.length);
+						for (var i = 0; i < nextFlights.length; i++) {
+							var tpm =
+								moment(nextFlights[i].date).format("YYYY-MM-DD") +
+								" " +
+								nextFlights[i].departure;
+							//debug(tpm);
+							tpm =
+								moment(tpm).diff(moment(), "minutes") + nextFlights[i].duration;
+							debug(tpm);
+							pqc.queue({
 								type: 1,
 								duration: parseFloat(nextFlights[i].duration),
-								distance: 0,
+								distance: parseFloat(nextFlights[i].distance),
+								cost: parseFloat(
+									(parseFloat(nextFlights[i].duration) * (20 / 6)).toFixed(2)
+								),
 								src_pincode: nextFlights[i].src_pincode,
 								dest_pincode: nextFlights[i].dest_pincode,
 								time: tpm,
 								path: [...top.path, topv],
 							});
+							// debug({
+							// 	type: 1,
+							// 	duration: parseFloat(nextFlights[i].duration),
+							// 	distance: parseFloat(nextFlights[i].distance),
+							// 	cost: parseFloat(
+							// 		(parseFloat(nextFlights[i].duration) * (20 / 6)).toFixed(2)
+							// 	),
+							// 	src_pincode: nextFlights[i].src_pincode,
+							// 	dest_pincode: nextFlights[i].dest_pincode,
+							// 	time: tpm,
+							// 	path: [...top.path, topv],
+							// });
 						}
 						vis.push(ht);
 					}
 				}
 			}
 			//debug(pq);
-			return { success: true, paths: paths };
+			fastestRoute = paths;
+			cheapestRoute = paths2;
+			return {
+				success: true,
+				fastestRoute: fastestRoute,
+				cheapestRoute: cheapestRoute,
+			};
 		});
 	//return await getPincodeDistance(src_pincode, dest_pincode);
 };

@@ -9,7 +9,7 @@ const getAllTrain = () => {
 				reject({ success: false, message: "Error In connection", error: err });
 			}
 			connection.query(
-				"SELECT e.*, ts.arrival,ts.departure, ts.pos,ts.day,rs.pincode as src_pincode,rs2.pincode as dest_pincode FROM edges e\
+				"SELECT e.*, ts.arrival,ts.departure,ts.distance, ts.pos,ts.day,rs.pincode as src_pincode,rs2.pincode as dest_pincode FROM edges e\
                 JOIN trainSchedule ts ON e.source=ts.code AND ts.num=e.num\
                 JOIN railStation rs ON e.source = rs.code\
                 JOIN railStation rs2 ON e.destination = rs2.code\
