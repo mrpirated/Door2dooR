@@ -115,6 +115,7 @@ const findFastestRoute = async (src_pincode, dest_pincode, hotspots) => {
 					type: top.type,
 					distance: top.distance,
 					duration: top.duration,
+					cost: top.cost,
 					time: top.time,
 					src_pincode: top.src_pincode,
 					dest_pincode: top.dest_pincode,
