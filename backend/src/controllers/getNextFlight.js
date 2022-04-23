@@ -1,9 +1,10 @@
 import dbg from "debug";
 
-const debug = dbg("controller:getnextTrain");
+const debug = dbg("controller:getNextFlight");
 import moment from "moment";
-const getNextTrain = (avaitime, code, allTrain) => {
-	var values = allTrain.filter((at) => at.source == code);
+const getNextFlight = (avaitime, code, allFlight) => {
+	var values = allFlight.filter((at) => at.source == code);
+	//debug(values);
 	for (var i = 0; i < values.length; i++) {
 		var tp =
 			moment(avaitime).format("YYYY-MM-DD") +
@@ -15,6 +16,6 @@ const getNextTrain = (avaitime, code, allTrain) => {
 		}
 		values[i].date = moment(tp).toDate();
 	}
-	return { nextTrains: values };
+	return { nextFlights: values };
 };
-export default getNextTrain;
+export default getNextFlight;
