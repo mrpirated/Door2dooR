@@ -19,6 +19,9 @@ const tableColumns = [
     },
     {
         title: "Time"
+    },
+    {
+        title: "Cost"
     }
 ];
 
