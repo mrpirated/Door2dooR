@@ -7,21 +7,24 @@ import Signup from './Signup';
 import Reactmap from './Reactmap';
 import Navigation from '../COMMON/Navigation';
 import Track from '../COMMON/Track';
-import  History from './History';
+import History from './History';
+import AboutPage from '../COMMON/AboutPage';
+
 function ClientRoute() {
-	return (
-		<div>
-			<Navigation/>
-			<Routes>
-				<Route path='login' element={<Login />} />
-				<Route path='signup' element={<Signup />} />
-				<Route path='find-route' element={<FindRoute />} />
-				<Route path='route-details' element={<RouteDetails />} />
-				<Route path='track' element={<Track />} />
-				<Route path='history' element={<History/>}/>
-			</Routes>
-		</div>
-	);
+  return (
+    <div>
+      <Navigation />
+      <Routes>
+        <Route path='login' element={<Login />} />
+        <Route path='signup' element={<Signup />} />
+        <Route path='find-route' element={<FindRoute />} />
+        <Route path='route-details' element={<RouteDetails />} />
+        <Route path='track' element={<Track />} />
+        <Route path='history' element={<History />} />
+        <Route path='about' element={<AboutPage />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default ClientRoute;

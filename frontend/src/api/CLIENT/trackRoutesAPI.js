@@ -1,10 +1,10 @@
 import axios from 'axios';
 import config from '../../config/config';
 
-const findRoutesAPI = async (data) => {
-  const { trackingId, token } = data;
+const trackRoutesAPI = async (data) => {
+  const { trackId, token } = data;
   return await axios
-    .get(config.baseUrl + +'?trackingId=' + trackingId, {
+    .get(config.baseUrl + +'?trackId=' + trackId, {
       headers: { Authorization: 'Bearer ' + token },
     })
     .then((res) => {
@@ -15,4 +15,4 @@ const findRoutesAPI = async (data) => {
       return { success: false, message: err.message };
     });
 };
-export default findRoutesAPI;
+export default trackRoutesAPI;
