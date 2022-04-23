@@ -43,7 +43,12 @@ function FindRoute() {
                     tempRow['srno'] = i+1;
                     tempRow['source'] = src_pincode;
                     tempRow['destination'] = dest_pincode;
-                    tempRow['cost'] = 0;
+                    var cost = 0;
+                    for(var j = 0; j < res[i].length; j++){
+                        cost += res[i][j]['cost'];
+                    }
+                    tempRow['cost'] = "Rs" + cost;
+                    console.log(cost);
                     tempRow['duration'] = res[i][res[i].length-1]['time'] + "min";
                     tempData.push(tempRow);
                 }

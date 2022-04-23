@@ -27,6 +27,7 @@ function RouteDetails(props) {
       tempRow['distance'] = routeDetails[i].distance + "km";
       tempRow['duration'] = routeDetails[i].duration;
       tempRow['time'] = routeDetails[i].time;
+      tempRow['cost'] = "Rs." + routeDetails[i].cost;
       tempData.push(tempRow);
     }
     
