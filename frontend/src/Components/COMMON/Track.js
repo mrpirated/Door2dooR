@@ -11,6 +11,22 @@ function Track() {
         return trackID.length > 0;
     };
 
+    const markers = [
+        {
+            anchorLat: 28.879,
+            anchorLng: 77.6997
+        },{
+            anchorLat: 27.900,
+            anchorLng: 77.6998
+        },{
+            anchorLat: 26.879,
+            anchorLng: 77.5997
+        },{
+            anchorLat: 28.079,
+            anchorLng: 77.6897
+        },
+    ]
+
     const handleSubmit = (event) => {
         event.preventDefault();
         if (validateForm()) {
@@ -52,7 +68,7 @@ function Track() {
                     Submit
                 </button>
             </div>
-            {/* <Reactmap /> */}
+            <Reactmap markers={markers} defaultLat={28.879} defaultLng={77.6997}/>
         </div>
     )
 }
