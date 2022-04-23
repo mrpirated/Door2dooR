@@ -203,7 +203,7 @@ const findFastestRoute = async (src_pincode, dest_pincode, hotspots) => {
 				}
 			}
 			//debug(pq);
-			return paths;
+			return { success: true, paths: paths };
 		});
 	//return await getPincodeDistance(src_pincode, dest_pincode);
 };
