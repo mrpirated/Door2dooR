@@ -87,10 +87,11 @@
 	font-size: 1.3rem;
 	color: white;
 	font-weight: 700;
-	background: var(--bgColor2);
+	background: black;
 	border: 0px;
 	cursor: pointer;
 	transition: opacity 0.25s ease-out;
+	margin: 20px;
 }
 
 .row button:hover {

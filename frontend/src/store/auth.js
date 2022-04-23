@@ -20,8 +20,11 @@ const slice = createSlice({
       auth.isauth = true;
       localStorage.setItem("token", JSON.stringify(auth.token));
     },
+    setLoading: (auth, action) => {
+			auth.isloading = action.payload.loading;
+		},
   },
 });
 
-export const { loggedIn } = slice.actions;
+export const { loggedIn,setLoading, } = slice.actions;
 export default slice.reducer;

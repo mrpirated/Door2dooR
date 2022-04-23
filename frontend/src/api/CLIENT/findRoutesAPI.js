@@ -3,8 +3,9 @@ import config from "../../config/config";
 
 const findRoutesAPI = async (data) => {
     const { src_pincode, dest_pincode, token } = data;
+    console.log(src_pincode, dest_pincode, token);
 	return await axios
-		.get(config.baseUrl + +
+		.get(config.baseUrl + config.findFastestRoute +
 			"?src_pincode=" + src_pincode +
 			"&dest_pincode=" + dest_pincode,
 			{
@@ -12,6 +13,7 @@ const findRoutesAPI = async (data) => {
 			}
 		)
 		.then((res) => {
+            console.log(res.data);
 			return res.data;
 		})
 		.catch((err) => {

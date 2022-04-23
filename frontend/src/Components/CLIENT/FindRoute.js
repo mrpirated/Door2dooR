@@ -4,16 +4,18 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { alertAdded, alertRemoved} from "../../store/alert";
-import { useSelector } from "react-redux";
 import DataTable from '../COMMON/DataTable';
 import tableColumns from './RouteTableColumns';
-import tableData from './RouteTableData';
+import {setLoading} from "../../store/auth";
+// import tableData from './RouteTableData';
 import findRoutesAPI from "../../api/CLIENT/findRoutesAPI";
 
 function FindRoute() {
     const [src_pincode, setSrcPincode] = useState("");
 	const [dest_pincode, setDestPincode] = useState("");
     const [startDate, setStartDate] = useState(new Date());
+    const [tableData, setTableData] = useState([]);
+    const [resData, setResData] = useState([])
     const dispatch = useDispatch();
 	const [openPopup, setopenPopup] = useState(false);
 	const handleClose = () => setopenPopup(false);
@@ -28,12 +30,26 @@ function FindRoute() {
         event.preventDefault();
 		if (validateForm()) {
             console.log("button clicked");
+            dispatch(setLoading({ loading: true }));
 			findRoutesAPI({
 				src_pincode: src_pincode,
                 dest_pincode: dest_pincode,
                 token:auth.token
 			}).then((res) => {
 				console.log(res);
+                var tempData = [];
+                for(var i = 0; i < res.length; i++) {
+                    var tempRow = {};
+                    tempRow['srno'] = i+1;
+                    tempRow['source'] = src_pincode;
+                    tempRow['destination'] = dest_pincode;
+                    tempRow['cost'] = 0;
+                    tempRow['duration'] = res[i][res[i].length-1]['time'] + "min";
+                    tempData.push(tempRow);
+                }
+                setTableData(tempData);
+                setResData(res);
+                dispatch(setLoading({ loading: true }));
 				if (res.success) {
 					setopenPopup(true);
 				} else {
@@ -84,7 +100,7 @@ function FindRoute() {
                     </button>
                 </div>
             </Form>
-            <DataTable columns={tableColumns} data={tableData} onclicklink={"/client/route-details"}/>
+            <DataTable columns={tableColumns} data={tableData} onclicklink={"/client/route-details"} resData={resData}/>
         </div>
     )
 }

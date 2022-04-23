@@ -8,7 +8,6 @@ export default function DataTable(props) {
 
 	return (
 		<div>
-			{console.log(props.data)}
 			<Table responsive='sm'>
 				<thead>
 					<tr>
@@ -23,9 +22,7 @@ export default function DataTable(props) {
 						console.log(d);
 						return (
 							<tr>
-								<td>{idx++}</td>
 								{Object.keys(d).map(function (key, index) {
-									//console.log(d);
 									return <td>{d[key]}</td>;
 								})}
                                 <td>
@@ -36,7 +33,7 @@ export default function DataTable(props) {
 										type='submit'
 										id={idx}
 										onClick={(e) => {
-											navigate(props.onclicklink, { state: { data: d} });
+											navigate(props.onclicklink, { state: { source: d.source, destination: d.destination, cost: d.cost, duration: d.duration, data: props.resData, idx:d.srno}});
 										}}
 									>
 										+

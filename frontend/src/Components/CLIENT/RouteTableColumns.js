@@ -9,12 +9,6 @@ const tableColumns = [
         title: "Destination"
     },
     {
-        title: "Departure"
-    },
-    {
-        title: "Arrival"
-    },
-    {
         title: "Cost"
     },
     {
