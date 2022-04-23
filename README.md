@@ -140,3 +140,6 @@ Team Name: Many Mavericks
 - [Aditya Darji](https://github.com/aditya-darji)
 - [Prateek Gupta](https://github.com/Prat2404)
 - [Abhishek Keshri](https://github.com/abhikeshri10)
+
+### Made at:
+<a href="https://hack36.com"> <img src="https://cutt.ly/BuiltAtHack36" height=24px> </a>
