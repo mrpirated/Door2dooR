@@ -116,3 +116,29 @@
             "message": string
         }
         ```
+5. /api/admin/addAirport
+    - request
+        ``` javascript
+        "headers":{
+            "authorization":"Bearer "+token
+        },
+        "body":{
+           "code":string,
+           "name":string,
+           "pincode":string
+        }
+        ```
+    - response
+        ```javascript
+        {
+            "success":boolean,
+            "message":string,
+        }
+        ```
+    - error
+        ```javascript
+        {
+            "success":boolean,
+            "message": string
+        }
+        ```

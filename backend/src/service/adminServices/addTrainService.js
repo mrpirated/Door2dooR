@@ -7,7 +7,7 @@ import addTrainSchedule from "../../data/addTrainSchedule";
 import getStationList from "../../data/getStationList";
 import findRailEdges from "../../controllers/findRailEdges";
 import addRailEdge from "../../data/addRailEdge";
-const addStationService = async (token, { num, name, days, schedule }) => {
+const addTrainService = async (token, { num, name, days, schedule }) => {
 	var stationList;
 	return await checkToken(token)
 		.then((response) => {
@@ -60,4 +60,4 @@ const addStationService = async (token, { num, name, days, schedule }) => {
 			return err;
 		});
 };
-export default addStationService;
+export default addTrainService;

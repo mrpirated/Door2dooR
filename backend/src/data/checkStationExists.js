@@ -2,7 +2,7 @@ import pool from "./dbconn";
 import dbg from "debug";
 const debug = dbg("data:checkStationExists");
 
-const checkIfUserExists = (code) => {
+const checkStationExists = (code) => {
 	return new Promise((resolve, reject) => {
 		pool.getConnection((err, connection) => {
 			if (err) {
@@ -31,4 +31,4 @@ const checkIfUserExists = (code) => {
 		});
 	});
 };
-export default checkIfUserExists;
+export default checkStationExists;
