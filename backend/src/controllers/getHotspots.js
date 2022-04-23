@@ -1,7 +1,7 @@
 import dbg from "debug";
 import getStationList from "../data/getStationList";
 import getAirport from "../data/getAirport";
-const debug = dbg("data:getHotspots");
+const debug = dbg("controller:getHotspots");
 
 const getHotspots = async () => {
 	var stationList, airport;

@@ -1,5 +1,7 @@
 import dbg from "debug";
 const debug = dbg("controller:findFastestRoute");
-
-const findFastestRoute = (src_pincode, dest_pincode, hotspots) => {};
+import getPincodeDistance from "./getPincodeDistance";
+const findFastestRoute = async (src_pincode, dest_pincode, hotspots) => {
+	return await getPincodeDistance(src_pincode, dest_pincode);
+};
 export default findFastestRoute;
