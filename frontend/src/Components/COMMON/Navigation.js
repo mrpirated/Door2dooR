@@ -15,7 +15,7 @@ const items = [
     {
         name: "History",
         color: "#9c27b0",
-        href: "#"
+        href: "/client/history"
     },
     {
         name: "About",

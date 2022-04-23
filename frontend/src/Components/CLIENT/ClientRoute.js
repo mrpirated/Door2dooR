@@ -7,6 +7,7 @@ import Signup from './Signup';
 import Reactmap from './Reactmap';
 import Navigation from '../COMMON/Navigation';
 import Track from '../COMMON/Track';
+import  History from './History';
 function ClientRoute() {
 	return (
 		<div>
@@ -17,6 +18,7 @@ function ClientRoute() {
 				<Route path='find-route' element={<FindRoute />} />
 				<Route path='route-details' element={<RouteDetails />} />
 				<Route path='track' element={<Track />} />
+				<Route path='history' element={<History/>}/>
 			</Routes>
 		</div>
 	);
