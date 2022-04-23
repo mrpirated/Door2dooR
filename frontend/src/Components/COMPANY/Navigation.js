@@ -3,19 +3,19 @@ import '../../styles/navigation.css';
 
 const items = [
     {
-        name: "Book",
+        name: "Orders",
         color: "#f44336",
-        href: "/client/find-route"
+        href: "/company/orders"
     },
     {
         name: "Track",
         color: "#e91e63",
-        href: "/client/track"
+        href: "/company/track"
     },
     {
-        name: "History",
+        name: "Approve Package",
         color: "#9c27b0",
-        href: "/client/history"
+        href: "/company/approve-package"
     },
     {
         name: "About",

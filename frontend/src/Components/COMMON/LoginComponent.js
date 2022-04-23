@@ -38,7 +38,7 @@ function LoginComponent(props) {
 				);
 				// console.log("SUCCESSFUL");
 				if (type === config.CLIENT) navigate("/client/find-route");
-				else if (type === config.COMPANY) navigate(config.company);
+				else if (type === config.COMPANY) navigate("/company/orders");
 				else navigate(config.admin);
 			} else {
 				dispatch(alertAdded({ variant: "danger", message: res.message }));
