@@ -103,7 +103,7 @@ const findFastestRoute = async (src_pincode, dest_pincode, hotspots) => {
 				paths2 = [];
 			var vis = [];
 
-			while (paths.length < 10 && pq.length > 0) {
+			while (paths.length < 5 && pq.length > 0) {
 				var top = pq.dequeue();
 				//debug(top);
 				var lpd = vis.find((v) => v.pincode == top.dest_pincode);
@@ -231,7 +231,7 @@ const findFastestRoute = async (src_pincode, dest_pincode, hotspots) => {
 				}
 			}
 			vis = [];
-			while (paths2.length < 10 && pqc.length > 0) {
+			while (paths2.length < 5 && pqc.length > 0) {
 				var top = pqc.dequeue();
 				var lpd = vis.find((v) => v.pincode == top.dest_pincode);
 				//debug(lpd);
