@@ -4,6 +4,9 @@ import config from "../config";
 import axios from "axios";
 import moment from "moment";
 const getPincodeDistance = async (src_pincode, dest_pincode) => {
+	if (src_pincode === dest_pincode) {
+		return { success: true, data: { distance: 0, duration: 0 } };
+	}
 	var src = src_pincode + " India";
 	var dest = dest_pincode + " India";
 	return await axios
@@ -22,7 +25,17 @@ const getPincodeDistance = async (src_pincode, dest_pincode) => {
 			var duration = moment
 				.duration(response.data.route.formattedTime, "HH:mm:ss")
 				.asMinutes();
-			return { success: true, data: { distance: dist, duration: duration } };
+			debug({ src_pincode, dest_pincode });
+			debug({ distance: dist, duration: duration });
+			return {
+				success: true,
+				data: {
+					distance: dist,
+					duration: duration,
+					src_pincode: src_pincode,
+					dest_pincode: dest_pincode,
+				},
+			};
 		})
 		.catch((err) => {
 			debug(err);
