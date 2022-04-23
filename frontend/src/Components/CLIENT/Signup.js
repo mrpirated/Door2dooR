@@ -32,7 +32,7 @@ const handleSubmit = (event) => {
     signupAPI({
       type,
       name,
-              email,
+      email,
       phone,
       password,
     }).then((res) => {
@@ -114,7 +114,7 @@ return (
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
-                          <div className='row'>
+            <div className='row'>
               <label>Phone Number</label>
               <PhoneInput
                 // placeholder="Enter phone number"
