@@ -2,13 +2,13 @@ import pool from "./dbconn";
 import dbg from "debug";
 
 const debug = dbg("data:addStation");
-const addStation = async (code, name) => {
+const addStation = async (code, name, pincode) => {
 	return new Promise((resolve, reject) => {
 		pool.getConnection((err, connection) => {
 			if (err) {
 				reject({ success: false, message: "Error In connection", error: err });
 			}
-			var values = { code: code, name: name };
+			var values = { code: code, name: name, pincode: pincode };
 			connection.query(
 				"INSERT INTO railStation set ?",
 				[values],

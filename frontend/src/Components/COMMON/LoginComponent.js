@@ -37,7 +37,7 @@ function LoginComponent(props) {
 					})
 				);
 				// console.log("SUCCESSFUL");
-				if (type === config.CLIENT) navigate(config.client);
+				if (type === config.CLIENT) navigate("/client/find-route");
 				else if (type === config.COMPANY) navigate(config.company);
 				else navigate(config.admin);
 			} else {

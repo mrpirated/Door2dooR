@@ -19,17 +19,6 @@
             "message":string,
             "data": {
                 "token":string,
-                "user":{
-                    "_id":0, // user_id,  admin_id depending on type
-                    "first_name":string,
-                    "last_name":string,
-                    "dob":string,
-                    "gender":string,
-                    "address":string,
-                    "email":string,
-                    "password":string,
-                    "phone":string
-                }
             }
         }
         ```
@@ -58,13 +47,6 @@
             "success":boolean,
             "message":string,
             "token":string, // user will be logged in after signup
-            "user":{
-                "_id":number, // patient_id, doctor_id, admin_id depending on type
-                "name":string,
-                "email":string,
-                "password":string,
-                "phone":string
-            }
         }
         ```
     - error
@@ -83,6 +65,7 @@
         "body":{
            "code":string,
            "name":string,
+           "pincode":string
         }
         ```
     - response
@@ -117,6 +100,32 @@
                 "day":int
            ]
 
+        }
+        ```
+    - response
+        ```javascript
+        {
+            "success":boolean,
+            "message":string,
+        }
+        ```
+    - error
+        ```javascript
+        {
+            "success":boolean,
+            "message": string
+        }
+        ```
+5. /api/admin/addAirport
+    - request
+        ``` javascript
+        "headers":{
+            "authorization":"Bearer "+token
+        },
+        "body":{
+           "code":string,
+           "name":string,
+           "pincode":string
         }
         ```
     - response
