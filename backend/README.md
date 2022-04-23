@@ -142,3 +142,37 @@
             "message": string
         }
         ```
+6.  /api/admin/addFlight
+    - request
+        ``` javascript
+        "headers":{
+            "authorization":"Bearer "+token
+        },
+        "body":{
+           "num":string,
+           "name":string,
+           "days":string,
+           "schedule":[
+              "code":string,
+                "arrival":string (time),
+                "departure":string (time),
+                "pos":int,
+                "day":int
+           ]
+
+        }
+        ```
+    - response
+        ```javascript
+        {
+            "success":boolean,
+            "message":string,
+        }
+        ```
+    - error
+        ```javascript
+        {
+            "success":boolean,
+            "message": string
+        }
+        ```
