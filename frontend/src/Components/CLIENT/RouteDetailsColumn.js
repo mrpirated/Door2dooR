@@ -9,16 +9,16 @@ const tableColumns = [
         title: "Destination"
     },
     {
-        title: "Train/Flight"
+        title: "Train/Flight/Roads"
     },
     {
-        title: "Vehicle Details"
+        title: "Distance"
     },
     {
-        title: "Departure"
+        title: "Duration"
     },
     {
-        title: "Arrival"
+        title: "Time"
     }
 ];
 

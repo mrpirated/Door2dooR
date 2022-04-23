@@ -15,5 +15,6 @@ const config = {
   COMPANY: 'company',
   ADMIN: 'admin',
   pincodeurl: 'http://api.positionstack.com/v1/forward?access_key=b108873b531f412bee73c342a818d23e&query=',
+  findFastestRoute: '/findFastestRoute'
 };
 export default config;

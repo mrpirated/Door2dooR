@@ -1,14 +1,39 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import DataTable from '../COMMON/DataTable';
 import tableColumns from './RouteDetailsColumn';
-import tableData from './RouteDetailsData';
 import Reactmap from './Reactmap';
+import { useDispatch, useSelector } from "react-redux";
+import {setLoading} from "../../store/auth";
+
 
 function RouteDetails(props) {
   const location = useLocation();
-  const routeDetails = location.state.data;
+  const routeDetails = location.state.data[location.state.idx-1];
+  const dispatch = useDispatch();
+  const [tableData, setTableData] = useState([]);
 
+  console.log(routeDetails, location.state.idx);
+
+  useEffect(() => {
+    dispatch(setLoading({ loading: true }));
+    var tempData = [];
+    for(var i = 0; i < routeDetails.length; i++) {
+      var tempRow = {};
+      tempRow['srno'] = i+1;
+      tempRow['source'] = routeDetails[i].src_pincode;
+      tempRow['destination'] = routeDetails[i].dest_pincode;
+      tempRow['trainFlightRoad'] = (routeDetails[i].type === 0 ? "Train" : (routeDetails[i].type === 1 ? "Flight" : "Roadways"));
+      tempRow['distance'] = routeDetails[i].distance + "km";
+      tempRow['duration'] = routeDetails[i].duration;
+      tempRow['time'] = routeDetails[i].time;
+      tempData.push(tempRow);
+    }
+    
+    setTableData(tempData);
+    dispatch(setLoading({ loading: false }));
+  }, [])
+  
   const markers = [
     {
         anchorLat: 28.879,
@@ -30,32 +55,22 @@ function RouteDetails(props) {
       {console.log(routeDetails)}
       <div className='row'>
         <label>Source</label>
-        <input value={routeDetails.source} />
+        <input value={location.state.source} />
       </div>
 
       <div className='row'>
         <label>Destination</label>
-        <input value={routeDetails.destination} />
-      </div>
-
-      <div className='row'>
-        <label>Departure</label>
-        <input value={routeDetails.departure} />
-      </div>
-
-      <div className='row'>
-        <label>Arrival</label>
-        <input value={routeDetails.arrival} />
+        <input value={location.state.destination} />
       </div>
 
       <div className='row'>
         <label>Cost</label>
-        <input value={routeDetails.cost} />
+        <input value={location.state.cost} />
       </div>
 
       <div className='row'>
         <label>Duration</label>
-        <input value={routeDetails.duration} />
+        <input value={location.state.duration} />
       </div>
 
       <DataTable
