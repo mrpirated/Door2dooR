@@ -1,15 +1,15 @@
 import pool from "./dbconn";
 import dbg from "debug";
-const debug = dbg("data:checkStationExists");
+const debug = dbg("data:checkAirportExists");
 
-const checkStationExists = (code) => {
+const checkAirportExists = (code) => {
 	return new Promise((resolve, reject) => {
 		pool.getConnection((err, connection) => {
 			if (err) {
 				reject({ success: false, message: "Error In connection", error: err });
 			}
 			connection.query(
-				"SELECT * FROM railStation WHERE code = ?",
+				"SELECT * FROM airport WHERE code = ?",
 				[code],
 				(err, result) => {
 					if (err) {
@@ -19,10 +19,10 @@ const checkStationExists = (code) => {
 						if (result.length > 0) {
 							resolve({
 								success: false,
-								message: "Station Found",
+								message: "Airport Found",
 							});
 						} else {
-							resolve({ success: true, message: "Station not found" });
+							resolve({ success: true, message: "Airport not found" });
 						}
 					}
 				}
@@ -31,4 +31,4 @@ const checkStationExists = (code) => {
 		});
 	});
 };
-export default checkStationExists;
+export default checkAirportExists;
