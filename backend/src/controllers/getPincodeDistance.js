@@ -32,6 +32,8 @@ const getPincodeDistance = async (src_pincode, dest_pincode) => {
 				data: {
 					distance: parseFloat(dist).toFixed(2),
 					duration: parseFloat(duration * 1.5).toFixed(2),
+					// lng: response.data.route.boundingBox.lr.lng,
+					// lat: response.data.route.boundingBox.lr.lat,
 					src_pincode: src_pincode,
 					dest_pincode: dest_pincode,
 				},

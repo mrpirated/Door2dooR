@@ -22,9 +22,9 @@ function FindRoute() {
     const alert = useSelector((state) => state.alert);
 	const auth = useSelector((state) => state.auth);
 
-    const validateForm = () => {
-		return src_pincode.length > 0 && dest_pincode.length > 0;
-	};
+  const validateForm = () => {
+    return src_pincode.length > 0 && dest_pincode.length > 0;
+  };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -65,44 +65,38 @@ function FindRoute() {
 			);
 		}
     }
-	
+    
     return (
         <div>
             <Form onSubmit={handleSubmit}>
                 <div className='row'>
-                    <label>Source Postal Code</label>
-                    <input
-                        value={src_pincode}
-                        onChange={(e) => setSrcPincode(e.target.value)}
-                    />
+                <label>Source Postal Code</label>
+                <input
+                    value={src_pincode}
+                    onChange={(e) => setSrcPincode(e.target.value)}
+                />
                 </div>
 
                 <div className='row'>
-                    <label>Destination Postal Code</label>
-                    <input
-                        value={dest_pincode}
-                        onChange={(e) => setDestPincode(e.target.value)}
-                    />
+                <label>Destination Postal Code</label>
+                <input
+                    value={dest_pincode}
+                    onChange={(e) => setDestPincode(e.target.value)}
+                />
                 </div>
-
-                {/* <div className='row'>
-                    <label>Departure</label>
-                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-                </div> */}
-
-                <div id='button' class='row'>
-                    <button
-                        style={{ width: "45%", fontSize: "15px" }}
-                        type='submit'
-                        disabled={!validateForm()}
-                    >
-                        Search
-                    </button>
+                        <div id='button' class='row'>
+                            <button
+                                style={{ width: "45%", fontSize: "15px" }}
+                                type='submit'
+                                disabled={!validateForm()}
+                            >
+                                Search
+                            </button>
+                        </div>
+                    </Form>
+                    <DataTable columns={tableColumns} data={tableData} onclicklink={"/client/route-details"} resData={resData}/>
                 </div>
-            </Form>
-            <DataTable columns={tableColumns} data={tableData} onclicklink={"/client/route-details"} resData={resData}/>
-        </div>
-    )
-}
+);
+};
 
-export default FindRoute
+export default FindRoute;

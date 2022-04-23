@@ -176,3 +176,38 @@
             "message": string
         }
         ```
+7.  /api/findFastestRoute (Get)
+    - request
+        ``` javascript
+        "headers":{
+            "authorization":"Bearer "+token
+        },
+        "query":{
+            "src_pincode":string,
+            "dest_pincode":string,
+        }
+        ```
+    - response
+        ```javascript
+        {
+            "success":boolean,
+            "message":string,
+            "data":[
+                [
+                    "type":int,
+                    "distance": number,
+                    "duration": number,
+                    "time": number,
+                    "src_pincode": string,
+                    "dest_pincode": string
+                ]
+            ]
+        }
+        ```
+    - error
+        ```javascript
+        {
+            "success":boolean,
+            "message": string
+        }
+        ```
