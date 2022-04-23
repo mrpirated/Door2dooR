@@ -362,8 +362,9 @@ const findFastestRoute = async (src_pincode, dest_pincode, hotspots) => {
 			cheapestRoute = paths2;
 			return {
 				success: true,
-				fastestRoute: fastestRoute,
-				cheapestRoute: cheapestRoute,
+				paths: [...fastestRoute, ...cheapestRoute],
+				// fastestRoute: fastestRoute,
+				// cheapestRoute: cheapestRoute,
 			};
 		});
 	//return await getPincodeDistance(src_pincode, dest_pincode);
