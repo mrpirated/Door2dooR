@@ -13,8 +13,8 @@ const findRoutesAPI = async (data) => {
 			}
 		)
 		.then((res) => {
-            console.log(res.data);
-			return res.data;
+            console.log(res.data.paths);
+			return res.data.paths;
 		})
 		.catch((err) => {
 			console.log(err);
