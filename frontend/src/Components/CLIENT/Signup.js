@@ -60,7 +60,7 @@ const handleOTPSubmit = (event) => {
     signupAPI({
       type,
       name,
-              email,
+      email,
       phone,
       password,
       otp: code,

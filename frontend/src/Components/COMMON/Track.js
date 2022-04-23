@@ -68,7 +68,9 @@ function Track() {
                     Submit
                 </button>
             </div>
-            <Reactmap markers={markers} defaultLat={28.879} defaultLng={77.6997}/>
+            <div style={{ width: '200vw', height: '200vh' }}>
+                <Reactmap markers={markers} defaultLat={28.879} defaultLng={77.6997}/>
+            </div>
         </div>
     )
 }

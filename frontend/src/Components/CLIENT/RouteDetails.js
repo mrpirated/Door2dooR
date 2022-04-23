@@ -8,6 +8,23 @@ import Reactmap from './Reactmap';
 function RouteDetails(props) {
   const location = useLocation();
   const routeDetails = location.state.data;
+
+  const markers = [
+    {
+        anchorLat: 28.879,
+        anchorLng: 77.6997
+    },{
+        anchorLat: 27.900,
+        anchorLng: 77.6998
+    },{
+        anchorLat: 26.879,
+        anchorLng: 77.5997
+    },{
+        anchorLat: 28.079,
+        anchorLng: 77.6897
+    },
+  ]
+
   return (
     <div>
       {console.log(routeDetails)}
@@ -48,7 +65,7 @@ function RouteDetails(props) {
       />
 
       <div style={{ width: '200vw', height: '200vh' }}>
-        <Reactmap/>
+        <Reactmap markers={markers} defaultLat={28.879} defaultLng={77.6997}/>
       </div>
     </div>
   );
