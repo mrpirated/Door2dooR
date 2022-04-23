@@ -3,7 +3,7 @@ const debug = dbg("service:admin/addStation");
 import checkStationExists from "../../data/checkStationExists";
 import checkToken from "../../controllers/checkToken";
 import addStation from "../../data/addStation";
-const addStationService = async (token, { code, name }) => {
+const addStationService = async (token, { code, name, pincode }) => {
 	return await checkToken(token)
 		.then((response) => {
 			if (response.data.decoded.type !== "admin") {
@@ -13,7 +13,7 @@ const addStationService = async (token, { code, name }) => {
 		})
 		.then((response) => {
 			if (response.success) {
-				return addStation(code, name);
+				return addStation(code, name, pincode);
 			} else {
 				return Promise.reject({ success: false, message: response.message });
 			}
