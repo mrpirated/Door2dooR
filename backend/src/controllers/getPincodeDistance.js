@@ -25,13 +25,13 @@ const getPincodeDistance = async (src_pincode, dest_pincode) => {
 			var duration = moment
 				.duration(response.data.route.formattedTime, "HH:mm:ss")
 				.asMinutes();
-			debug({ src_pincode, dest_pincode });
-			debug({ distance: dist, duration: duration });
+			// debug({ src_pincode, dest_pincode });
+			// debug({ distance: dist, duration: duration });
 			return {
 				success: true,
 				data: {
-					distance: dist,
-					duration: duration,
+					distance: parseFloat(dist).toFixed(2),
+					duration: parseFloat(duration * 1.5).toFixed(2),
 					src_pincode: src_pincode,
 					dest_pincode: dest_pincode,
 				},
