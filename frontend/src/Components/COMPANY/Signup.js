@@ -98,7 +98,7 @@ function Signup(props) {
 					<img
 						style={{ height: "100%", width: "100%", margin: "40% auto" }}
 						src={"HEELLO"}
-						alt={"doctor_logo"}
+						alt={"logistic_logo"}
 					/>
 				</div>
 				<div id='left-signup'>

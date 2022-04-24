@@ -33,7 +33,7 @@ export default function DataTable(props) {
 										type='submit'
 										id={idx}
 										onClick={(e) => {
-											navigate(props.onclicklink, { state: { source: d.source, destination: d.destination, cost: d.cost, duration: d.duration, data: props.resData, idx:d.srno}});
+											navigate(props.onclicklink, { state: { source: d.source, destination: d.destination, cost: d.cost, duration: d.duration, data: props.resData, markersGrp: props.markersGrp, idx:d.srno}});
 										}}
 									>
 										+
