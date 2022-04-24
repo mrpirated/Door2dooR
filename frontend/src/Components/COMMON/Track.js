@@ -3,6 +3,8 @@ import { alertAdded, alertRemoved } from "../../store/alert";
 import { useDispatch, useSelector } from "react-redux";
 import Reactmap from "../CLIENT/Reactmap";
 import trackRoutesAPI from "../../api/CLIENT/trackRoutesAPI";
+import DataTable from "./DataTable";
+import TrackColumn from "./TrackColumn";
 
 const temp = [
 	{
@@ -27,6 +29,7 @@ function Track() {
 	const auth = useSelector((state) => state.auth);
 	const [trackID, setTrackID] = useState("");
 	const dispatch = useDispatch();
+  const [tableData, setTableData] = useState([])
 	const validateForm = () => {
 		return trackID.length > 0;
 	};
@@ -40,7 +43,24 @@ function Track() {
 				token: auth.token,
 				track_id: trackID,
 			}).then((res) => {
-				console.log(res);
+				console.log(res.data.trackRoute);
+        var tempData = [];
+        for(var i = 0; i < res.data.trackRoute.length; i++) {
+          var tempRow = {};
+          tempRow["srno"] = res.data.trackRoute[i]["pos"];
+          tempRow["trackID"] = res.data.trackRoute[i]["track_id"];
+          tempRow["src_pincode"] = res.data.trackRoute[i]["src_pincode"];
+          tempRow["dest_pincode"] = res.data.trackRoute[i]["dest_pincode"];
+          tempRow["distance"] = res.data.trackRoute[i]["distance"] + "km";
+          tempRow["duration"] = res.data.trackRoute[i]["duration"] + "min";
+          tempRow["time"] = res.data.trackRoute[i]["time"] + "min";
+          tempRow["type"] = res.data.trackRoute[i]["type"];
+          tempRow["cost"] = res.data.trackRoute[i]["cost"];
+
+          tempData.push(tempRow);
+        }
+        console.log(tempData);
+        setTableData(tempData);
 				// setMarkers([
 				// 	{
 				// 		anchorLat: res.data.lat,
@@ -83,6 +103,10 @@ function Track() {
 					Submit
 				</button>
 			</div>
+      <DataTable
+				columns={TrackColumn}
+				data={tableData}
+			/>
 			<div style={{ width: "200vw", height: "200vh" }}>
 				<Reactmap markers={markers} defaultLat={28.879} defaultLng={77.6997} />
 			</div>
