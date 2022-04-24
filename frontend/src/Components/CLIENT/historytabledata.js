@@ -1,5 +1,6 @@
 const historytabledata = [
     {
+        srno: 1,
         CourierId: "2210",
         source: "Surat",
         destination: "Vadodara",
@@ -10,6 +11,7 @@ const historytabledata = [
         Cost:"1500",
 
     },{
+        srno: 2,
         CourierId: "2257",
         source: "Vadodara",
         destination: "Jaipur",
@@ -19,6 +21,7 @@ const historytabledata = [
         Actual_Time:"17 Hrs",
         Cost:"1500",
     },{
+        srno: 3,
         CourierId: "3320",
         source: "Jaipur",
         destination: "Delhi",
