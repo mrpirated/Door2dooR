@@ -29,8 +29,8 @@ const addNewTrack = (path, client_id) => {
 					reject({ success: false, message: err });
 				} else {
 					connection.query(
-						"INSERT INTO trackRoute VALUES (track_id,pos,type\
-                        distance,duration,time,cost,src_pincode,dest_pincode) ?",
+						"INSERT INTO trackRoute (track_id,pos,type,\
+                        distance,duration,time,cost,src_pincode,dest_pincode) VALUES  ?",
 						[valuesRoute],
 						(err, result) => {
 							if (err) {
