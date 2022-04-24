@@ -17,8 +17,10 @@ const config = {
 	ADMIN: "admin",
 	token: "/token",
 	bookRoute: "/bookRoute",
+	trackRoute: "/trackRoute",
 	pincodeurl:
 		"http://api.positionstack.com/v1/forward?access_key=b108873b531f412bee73c342a818d23e&query=",
 	findFastestRoute: "/findFastestRoute",
+	pintocityurl: "https://api.postalpincode.in/pincode/",
 };
 export default config;

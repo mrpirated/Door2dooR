@@ -24,6 +24,7 @@ const temp = [
 ];
 
 function Track() {
+	const auth = useSelector((state) => state.auth);
 	const [trackID, setTrackID] = useState("");
 	const dispatch = useDispatch();
 	const validateForm = () => {
@@ -36,15 +37,16 @@ function Track() {
 		event.preventDefault();
 		if (validateForm()) {
 			trackRoutesAPI({
-				trackID,
+				token: auth.token,
+				track_id: trackID,
 			}).then((res) => {
 				console.log(res);
-				setMarkers([
-					{
-						anchorLat: res.data.lat,
-						anchorLong: res.data.long,
-					},
-				]);
+				// setMarkers([
+				// 	{
+				// 		anchorLat: res.data.lat,
+				// 		anchorLong: res.data.long,
+				// 	},
+				// ]);
 			});
 			// trackOrderAPI({
 			//     trackID
@@ -71,10 +73,7 @@ function Track() {
 		<div>
 			<div className='row'>
 				<label>Tracking Id:</label>
-				<input
-				// value={trackID}
-				// onChange={(e) => setTrackID(e.target.value)}
-				/>
+				<input value={trackID} onChange={(e) => setTrackID(e.target.value)} />
 			</div>
 			<div id='button' class='row'>
 				<button
