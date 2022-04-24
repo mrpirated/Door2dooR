@@ -16,7 +16,8 @@ const loginService = async ({ type, phone, password }) => {
 			});
 		})
 		.then((response) => {
-			user_id = response.data.user.user_id;
+			if (type == "client") user_id = response.data.user.client_id;
+			else if (type == "admin") user_id = response.data.user.admin_id;
 			return checkPassword(password, response.data.user.password);
 		})
 		.then((response) => {
