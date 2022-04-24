@@ -57,7 +57,7 @@ function LoginComponent(props) {
 				<img
 					style={{ height: "120%", width: "100%", margin: "auto" }}
 					// src={props.doctorLogo}
-					alt={"doctor_logo"}
+					alt={"logistic_logo"}
 				/>
 			</div>
 			<div id='right'>
