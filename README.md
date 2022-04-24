@@ -12,7 +12,7 @@
   <h3 align="center">Door2dooR</h3>
 
   <p align="center">
-    We build the best route for your parcel
+    We provide the best route for your parcel according to your needs
     <br />
     <a href="https://github.com/mrpirated/Door2dooR"><strong>Explore the docs »</strong></a>
     <br />
@@ -132,7 +132,7 @@
 
 ## Demo Video
 
-[Youtube Link](http://youtube.com/)
+[Youtube Link](https://youtu.be/xmU8r7-5TOs)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
