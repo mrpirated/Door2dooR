@@ -44,7 +44,13 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    
+    <li>
+      <a href="#demo-video">Demo Video</a>
+    </li>
+    <li>
+         <a href="#presentation-link">Presentation Link</a>
+    </li>
+      
   </ol>
 </details>
 
@@ -73,6 +79,8 @@
 - [Node Js](https://nodejs.org/en/)
 - [React.js](https://reactjs.org/)
 - [Bootstrap](https://getbootstrap.com)
+- [MySQL](https://www.mysql.com/)
+- [Express.js](https://expressjs.com/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
