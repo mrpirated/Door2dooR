@@ -6,23 +6,34 @@ import Reactmap from './Reactmap';
 import { useDispatch, useSelector } from "react-redux";
 import {setLoading} from "../../store/auth";
 import pincode from 'pincode-lat-long';
-
+import pintocity from '../../api/COMMON/pintocity';
+import PintoCordinates from '../../api/COMMON/pintoCordinates';
 function RouteDetails(props) {
   const location = useLocation();
   const routeDetails = location.state.data[location.state.idx-1];
+  const markers = location.state.markersGrp[location.state.idx-1];
   const dispatch = useDispatch();
-  // const [markers, setMarkers] = useState([]);
   const [tableData, setTableData] = useState([]);
 
   console.log(routeDetails, location.state.idx);
-
+  console.log(markers);
   useEffect(() => {
     dispatch(setLoading({ loading: true }));
     var tempData = [];
-    // var tempMarkers = [];
     for(var i = 0; i < routeDetails.length; i++) {
       var tempRow = {};
       tempRow['srno'] = i+1;
+      // pintocity( routeDetails[i].src_pincode).then((res)=>
+      // {
+      //   PintoCordinates(res[0]['Name']).then((res) =>
+      //   {
+      //     var tempMarkers = markers;
+      //     tempMarkers.push({anchorLat: res.data[0].latitude, anchorLng: res.data[0].longitude});
+      //     setTimeout(setMarkers(tempMarkers), 200);
+      //     // console.log(res.data[0].latitude,res.data[0].longitude);
+      //   });
+      // } 
+      // );
       tempRow['source'] = routeDetails[i].src_pincode;
       tempRow['destination'] = routeDetails[i].dest_pincode;
       tempRow['trainFlightRoad'] = (routeDetails[i].type === 0 ? "Train" : (routeDetails[i].type === 1 ? "Flight" : "Roadways"));
@@ -31,6 +42,7 @@ function RouteDetails(props) {
       tempRow['time'] = routeDetails[i].time;
       tempRow['cost'] = "Rs." + routeDetails[i].cost;
       tempData.push(tempRow);
+
       // tempMarkers.push({
       //   anchorLat: pincode.getlatlong(routeDetails[i].src_pincode)["lat"],
       //   anchorLng: pincode.getlatlong(routeDetails[i].src_pincode)["long"]
@@ -40,29 +52,30 @@ function RouteDetails(props) {
       //   anchorLng: pincode.getlatlong(routeDetails[i].dest_pincode)["long"]
       // });
     }
+    console.log(markers);
     // setMarkers(tempMarkers);
     setTableData(tempData);
     dispatch(setLoading({ loading: false }));
   }, []);
 
-  const markers = [
-    {
-      anchorLat: 28.879,
-      anchorLng: 77.6997,
-    },
-    {
-      anchorLat: 27.9,
-      anchorLng: 77.6998,
-    },
-    {
-      anchorLat: 26.879,
-      anchorLng: 77.5997,
-    },
-    {
-      anchorLat: 28.079,
-      anchorLng: 77.6897,
-    },
-  ];
+  // const markers = [
+  //   {
+  //     anchorLat: 28.879,
+  //     anchorLng: 77.6997,
+  //   },
+  //   {
+  //     anchorLat: 27.9,
+  //     anchorLng: 77.6998,
+  //   },
+  //   {
+  //     anchorLat: 26.879,
+  //     anchorLng: 77.5997,
+  //   },
+  //   {
+  //     anchorLat: 28.079,
+  //     anchorLng: 77.6897,
+  //   },
+  // ];
   
   return (
     <div>

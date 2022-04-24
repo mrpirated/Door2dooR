@@ -9,6 +9,8 @@ import tableColumns from './RouteTableColumns';
 import {setLoading} from "../../store/auth";
 // import tableData from './RouteTableData';
 import findRoutesAPI from "../../api/CLIENT/findRoutesAPI";
+import pintocity from '../../api/COMMON/pintocity';
+import PintoCordinates from '../../api/COMMON/pintoCordinates';
 
 function FindRoute() {
     const [src_pincode, setSrcPincode] = useState("");
@@ -21,6 +23,8 @@ function FindRoute() {
 	const handleClose = () => setopenPopup(false);
     const alert = useSelector((state) => state.alert);
 	const auth = useSelector((state) => state.auth);
+    const [markers, setMarkers] = useState([]);
+    const [markersGrp, setMarkersGrp] = useState([]);
 
   const validateForm = () => {
     return src_pincode.length > 0 && dest_pincode.length > 0;
@@ -44,14 +48,43 @@ function FindRoute() {
                     tempRow['source'] = src_pincode;
                     tempRow['destination'] = dest_pincode;
                     var cost = 0;
+                    
                     for(var j = 0; j < res[i].length; j++){
                         cost += res[i][j]['cost'];
+                        
+                        pintocity( res[i][j].src_pincode).then((res)=>
+                        {
+                            PintoCordinates(res[0]['District']).then((res) =>
+                            {
+                                var tempMarkers = markers;
+                                tempMarkers.push({anchorLat: res.data[0].latitude, anchorLng: res.data[0].longitude});
+                                setMarkers(tempMarkers);
+                                // console.log(res.data[0].latitude,res.data[0].longitude);
+                            });
+                        }
+                        );
+                        pintocity( res[i][j].dest_pincode).then((res)=>
+                        {
+                            PintoCordinates(res[0]['District']).then((res) =>
+                            {
+                                var tempMarkers = markers;
+                                tempMarkers.push({anchorLat: res.data[0].latitude, anchorLng: res.data[0].longitude});
+                                setMarkers(tempMarkers);
+                                // console.log(res.data[0].latitude,res.data[0].longitude);
+                            });
+                        }
+                        );
                     }
+                    var tempMarkersGrp = markersGrp;
+                    tempMarkersGrp.push(markers);
+                    setMarkersGrp(tempMarkersGrp);
                     tempRow['cost'] = "Rs" + cost;
                     console.log(cost);
                     tempRow['duration'] = res[i][res[i].length-1]['time'] + "min";
                     tempData.push(tempRow);
+                    setMarkers([]);
                 }
+                console.log(setMarkersGrp);
                 setTableData(tempData);
                 setResData(res);
                 dispatch(setLoading({ loading: true }));
@@ -99,7 +132,7 @@ function FindRoute() {
                             </button>
                         </div>
                     </Form>
-                    <DataTable columns={tableColumns} data={tableData} onclicklink={"/client/route-details"} resData={resData}/>
+                    <DataTable columns={tableColumns} data={tableData} onclicklink={"/client/route-details"} resData={resData} markersGrp={markersGrp}/>
                 </div>
 );
 };
