@@ -6,6 +6,7 @@ function Reactmap(props) {
     defaultCenter={[28.879, 77.6997]}
     anchor={[28.879, 77.6997]}
   */
+  console.log(props.markers);
   return (
     // <Map height={300} defaultCenter={[28.879, 77.6997]} defaultZoom={11}>
     //   <Marker width={50} anchor={[50.879, 4.6997]} />
